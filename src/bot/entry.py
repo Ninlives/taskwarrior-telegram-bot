@@ -179,5 +179,5 @@ def main() -> None:
     updator.BOT = Bot(sys.argv[1])
     updator.USER = int(sys.argv[2])
     global _tw
-    _tw = TaskWarrior(data_location=sys.argv[3], create=True)
+    _tw = TaskWarrior(data_location=sys.argv[3], taskrc_location=sys.argv[4], create=True)
     start()
