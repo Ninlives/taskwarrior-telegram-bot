@@ -37,7 +37,6 @@ def start():
 
 def listen():
     while True:
-        _tw.sync()
         commands = {
             "List all tasks": lambda: list_task(edit_task),
             "Add a new task": add_task,
@@ -57,6 +56,7 @@ def listen():
         else:
             for c in commands:
                 if Filters.text(c).filter(message):
+                    _tw.sync()
                     commands[c]()
                     break
 
