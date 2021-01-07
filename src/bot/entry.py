@@ -45,6 +45,7 @@ def listen():
         send_message("I'm listening.", reply_markup=ReplyKeyboardMarkup(keyboard))
         message = get_next_message()
 
+        _tw.sync()
         if (
             message.entities
             and message.entities[0].type == MessageEntity.BOT_COMMAND
@@ -56,9 +57,9 @@ def listen():
         else:
             for c in commands:
                 if Filters.text(c).filter(message):
-                    _tw.sync()
                     commands[c]()
                     break
+        _tw.sync()
 
 def handle_command(command, args):
     if command == 'task':

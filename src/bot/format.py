@@ -9,14 +9,22 @@ from telegram import (
 )
 from .constant import *
 from datetime import datetime
+from math import floor
 
 
 def task2str(task):
+    def sec2time(seconds):
+        abssec = abs(seconds)
+        one_hour = 60 * 60
+        one_day = 24 * one_hour
+        days = floor(abssec / one_day)
+        hours = floor((abssec - days * one_day) / one_hour)
+        return f"{'-' if seconds < 0 else ''}{f'{days}d' if days > 0 else ''}{hours}h"
     result = f"{task['id']}. {task['description']}"
 
     if task['due']:
         due = task['due'] - datetime.now(task['due'].tzinfo)
-        result = result + " ⏱" + (f"{due.days}d" if due.days > 0 else "") + f"{str(round(due.seconds/3600))}h"
+        result = result + " ⏱" + sec2time(due.total_seconds())
     # if len(result) > 30:
     #     result = result[:30]
     # else:
