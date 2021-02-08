@@ -35,6 +35,7 @@ class syncThread(threading.Thread):
     def run(self):
         while True:
             _tw_lock.acquire()
+            tasks = _tw.tasks.filter(status='pending')
             _tw.sync()
             _tw_lock.release()
             time.sleep(60*60)
